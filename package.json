@@ -4,8 +4,33 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm start"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node-sass --watch public/css -o public/css --s compressed | nodemon"
   },
   "author": "MAD",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "connect-flash": "^0.1.1",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "express-vue": "^5.6.2",
+    "handlebars": "^4.0.11",
+    "jquery": "^3.3.1",
+    "jsdom": "^11.10.0",
+    "method-override": "^2.3.10",
+    "mongodb": "^3.0.3",
+    "mongoose": "^5.0.7",
+    "mustache": "^2.3.0",
+    "node-rest-client": "^3.1.0",
+    "node-sass": "^4.7.2",
+    "nodemon": "^1.15.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "summernote-nodejs": "^1.0.4"
+  }
 }

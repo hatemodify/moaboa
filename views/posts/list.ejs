@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../partials/header.ejs %>
+    <title>
+      <%= title %>
+    </title>
+</head>
+
+<body>
+
+  <div class="wrap">
+    <div class="contents-wrap">
+      <section class="page-tit">
+        <span class="">&lt;
+          <%= title %>&gt;</span>
+      </section>
+      <article class="wrap-post">
+        <h3 class="tit-post">
+          <%= category %>
+        </h3>
+        <ul class="post-list">
+          <% if(posts == null || posts.length == 0){ %>
+            <li> There is no data to show :(</li>
+            <% } %>
+              <% posts.forEach(function(post) { %>
+                <li>
+                  <span class="txt-writer">
+                    <span class="ico_write"></span>
+                    <%= post.category %>
+                  </span>
+
+                  <span class="txt-regdate" class="date">
+                    <span class="ico_calender"></span>
+                    <%= post.createdDate %>
+                  </span>
+                  <span class="txt-writer">
+                    <span class="ico_write"></span>
+                    <%= post.author ? post.author.username : "" %>
+                  </span>
+                  <a class="post-subject" href="/posts/<%= post.title %>">
+                    <%= post.title %>
+                  </a>
+                </li>
+                <% }) %>
+        </ul>
+      </article>
+
+    </div>
+    <div class="page-bottom">
+      <section class="contents-wrap">
+        <h2 class="page-end">&lt;/posts&gt;</h2>
+        <a href="/project.asp" class="next-page page-link">
+          <span>project</span>
+          <i class="arrow"></i>
+        </a>
+      </section>
+    </div>
+  </div>
+
+
+  <% include ../partials/footer.ejs %>
+</body>
+
+</html>

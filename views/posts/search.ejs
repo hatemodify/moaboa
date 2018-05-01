@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../partials/header.ejs %>
+    <title>
+      
+    </title>
+</head>
+
+<body>
+
+  <div class="wrap">
+    <div class="contents-wrap">
+      <section class="page-tit">
+        <span class="">&lt;
+          &gt;</span>
+      </section>
+      <article class="wrap-post">
+        <h3 class="tit-post">
+            <%= api %>
+        </h3>
+        <ul class="post-list">
+
+        </ul>
+      </article>
+
+    </div>
+    <div class="page-bottom">
+      <section class="contents-wrap">
+        <h2 class="page-end">&lt;/posts&gt;</h2>
+        <a href="/project.asp" class="next-page page-link">
+          <span>project</span>
+          <i class="arrow"></i>
+        </a>
+      </section>
+      <form class="post-form" action="/posts" method="post">
+        <fieldset>
+          
+          <div class="input-wrap">
+            <label class="t-d1" for="t-d1">제목</label>
+            <input type="text" class="t-d1 input-t" id="query" name="title" placeholder="제목 입력해 주세요" required>
+            <span class="l"></span>
+          </div>
+
+        </fieldset>
+        <div class="buttons">
+          <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <% include ../partials/footer.ejs %>
+</body>
+
+</html>

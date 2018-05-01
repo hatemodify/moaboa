@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post");
 const util = require("../util");
+const Client = require('node-rest-client').Client;
+const $ = require ('jquery');
 
 // Index
 router.get("/", function (req, res) {
@@ -10,7 +12,11 @@ router.get("/", function (req, res) {
     .sort("-createdAt")
     .exec(function (err, posts) {
       if (err) return res.json(err);
-      res.render("posts/index", { posts: posts, title: 'Posts', 'category': 'all posts' });
+      res.render("posts/index", {
+        posts: posts,
+        title: 'Posts',
+        'category': 'all posts'
+      });
     });
 });
 
@@ -18,12 +24,25 @@ router.get("/", function (req, res) {
 router.get("/new", util.isLoggedin, function (req, res) {
   const post = req.flash("post")[0] || {};
   const errors = req.flash("errors")[0] || {};
-  res.render("posts/new", { post: post, errors: errors });
+  res.render("posts/new", {
+    post: post,
+    errors: errors
+  });
+});
+
+router.get("/search", (req, res) => {
+
+  res.render("posts/search", {
+    api: api
+  });
+
+  console.log(api);
+
 });
 
 // create
 router.post("/", util.isLoggedin, function (req, res) {
-  req.body.author = req.user._id;  
+  req.body.author = req.user._id;
   Post.create(req.body, function (err, post) {
     if (err) {
       req.flash("post", req.body);
@@ -45,33 +64,41 @@ router.post("/", util.isLoggedin, function (req, res) {
 //     });
 // });
 
-router.get("/javascript", function(req, res){
+router.get("/javascript", function (req, res) {
   Post.find({
-    "category":"javascript"
-  })
-  .sort("-createdAt")
-  .exec(function(err, posts){
-    if(err) return res.json(err);
-    res.render("posts/index", {posts:posts, title:'Posts', 'category' : 'javascript'});
-  });
+      "category": "javascript"
+    })
+    .sort("-createdAt")
+    .exec(function (err, posts) {
+      if (err) return res.json(err);
+      res.render("posts/index", {
+        posts: posts,
+        title: 'Posts',
+        'category': 'javascript'
+      });
+    });
 });
 
-router.get("/vue", function(req, res){
+router.get("/vue", function (req, res) {
   Post.find({
-    "category":"vue"
-  })
-  .sort("-createdAt")
-  .exec(function(err, posts){
-    if(err) return res.json(err);
-    res.render("posts/index", {posts:posts, title:'Posts', category:'vue'});
-  });
+      "category": "vue"
+    })
+    .sort("-createdAt")
+    .exec(function (err, posts) {
+      if (err) return res.json(err);
+      res.render("posts/index", {
+        posts: posts,
+        title: 'Posts',
+        category: 'vue'
+      });
+    });
 });
 
 
 
 
 // create
-router.post("/", function (req, res) {  
+router.post("/", function (req, res) {
   req.body.author = req.user._id; // 2
   Post.create(req.body, function (err, post) {
     if (err) {
@@ -86,12 +113,14 @@ router.post("/", function (req, res) {
 // show
 
 router.get("/:title", function (req, res) {
-  Post.findOne({ title: req.params.title }) // 3
-    .populate("author")               // 3
-    .exec(function (err, post) {        // 3
+  Post.findOne({
+      title: req.params.title
+    }) // 3
+    .populate("author") // 3
+    .exec(function (err, post) { // 3
       if (err) return res.json(err);
-      res.render("posts/show", { 
-        post: post 
+      res.render("posts/show", {
+        post: post
       });
     });
 });
@@ -99,16 +128,22 @@ router.get("/:title", function (req, res) {
 
 // edit
 router.get("/:id/edit", function (req, res) {
-  Post.findOne({ _id: req.params.id }, function (err, post) {
+  Post.findOne({
+    _id: req.params.id
+  }, function (err, post) {
     if (err) return res.json(err);
-    res.render("posts/edit", { post: post });
+    res.render("posts/edit", {
+      post: post
+    });
   });
 });
 
 // update
 router.put("/:id", function (req, res) {
   req.body.updatedAt = Date.now();
-  Post.findOneAndUpdate({ _id: req.params.id }, req.body, function (err, post) {
+  Post.findOneAndUpdate({
+    _id: req.params.id
+  }, req.body, function (err, post) {
     if (err) return res.json(err);
     res.redirect("/posts/" + req.params.id);
   });
@@ -116,7 +151,9 @@ router.put("/:id", function (req, res) {
 
 // destroy
 router.delete("/:id", function (req, res) {
-  Post.remove({ _id: req.params.id }, function (err) {
+  Post.remove({
+    _id: req.params.id
+  }, function (err) {
     if (err) return res.json(err);
     res.redirect("/posts");
   });

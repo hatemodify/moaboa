@@ -10,6 +10,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("./config/passport"); // 1
 
+
 // const output = save(summernoteContents);
 
 const app = express();
@@ -36,10 +37,14 @@ app.set("view engine", "ejs");
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(methodOverride("_method"));
 app.use(flash());
-app.use(session({secret:"MySecret"}));
+app.use(session({
+  secret: "MySecret"
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -65,3 +70,5 @@ http.createServer(app).listen(app.get('port'), function () {
   console.log('server started' + app.get('port'));
   // connectionDb();
 });
+
+
